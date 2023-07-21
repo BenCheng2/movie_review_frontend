@@ -1,6 +1,5 @@
-import React from 'react';
-import {useGetUsersQuery} from "../users/usersApiSlice";
-import Note from "../notes/Note";
+import { useGetNotesQuery } from "./notesApiSlice"
+import Note from "./Note"
 
 const NotesList = () => {
     const {
@@ -9,17 +8,21 @@ const NotesList = () => {
         isSuccess,
         isError,
         error
-    } = useGetUsersQuery()
+    } = useGetNotesQuery(undefined, {
+        pollingInterval: 15000,
+        refetchOnFocus: true,
+        refetchOnMountOrArgChange: true
+    })
 
     let content
 
     if (isLoading) content = <p>Loading...</p>
 
     if (isError) {
-        content = <p className={isError ? "errmsg" : "offscreen"}>{error?.data?.message}</p>
+        content = <p className="errmsg">{error?.data?.message}</p>
     }
-    if (isSuccess) {
 
+    if (isSuccess) {
         const { ids } = notes
 
         const tableContent = ids?.length
@@ -43,10 +46,8 @@ const NotesList = () => {
                 </tbody>
             </table>
         )
-
-        return content;
     }
 
+    return content
 }
-
-export default NotesList;
+export default NotesList

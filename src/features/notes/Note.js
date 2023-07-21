@@ -1,19 +1,17 @@
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPenToSquare} from "@fortawesome/free-solid-svg-icons";
-import {useNavigate} from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons"
+import { useNavigate } from 'react-router-dom'
 
-import {useSelector} from "react-redux";
-import {notesApiSlice, selectNoteById} from "./notesApiSlice";
+import { useSelector } from 'react-redux'
+import { selectNoteById } from './notesApiSlice'
 
-import React from 'react';
-
-const Note = ({noteId}) => {
+const Note = ({ noteId }) => {
 
     const note = useSelector(state => selectNoteById(state, noteId))
 
     const navigate = useNavigate()
 
-    if (note){
+    if (note) {
         const created = new Date(note.createdAt).toLocaleString('en-US', { day: 'numeric', month: 'long' })
 
         const updated = new Date(note.updatedAt).toLocaleString('en-US', { day: 'numeric', month: 'long' })
@@ -46,5 +44,4 @@ const Note = ({noteId}) => {
 
     } else return null
 }
-
-export default Note;
+export default Note
