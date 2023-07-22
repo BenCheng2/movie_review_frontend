@@ -17,6 +17,9 @@ import NewMovieCommentForm from "./features/movieComments/NewMovieCommentForm";
 import NewMovieComment from "./features/movieComments/NewMovieComment";
 import EditMovieCommentForm from "./features/movieComments/EditMovieCommentForm";
 import EditMovieComment from "./features/movieComments/EditMovieComment";
+import PersistLogin from "./features/auth/PersistLogin";
+import RequireAuth from './features/auth/RequireAuth'
+import {ROLES} from './config/roles'
 
 
 function App() {
@@ -26,32 +29,38 @@ function App() {
                 <Route index element={<Public/>}/>
                 <Route path="login" element={<Login/>}/>
 
-                <Route element={<Prefetch/>}>
-                    <Route path="dash" element={<DashLayout/>}>
-                        <Route index element={<Welcome/>}/>
+                <Route element={<PersistLogin/>}>
+                    <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]}/>}>
+                        <Route element={<Prefetch/>}>
+                            <Route path="dash" element={<DashLayout/>}>
+                                <Route index element={<Welcome/>}/>
 
-                        <Route path={"users"}>
-                            <Route index element={<UsersList/>}/>
-                            <Route path=":id" element={<EditUser/>}/>
-                            <Route path="new" element={<NewUserForm/>}/>
-                        </Route>
+                                <Route element={<RequireAuth allowedRoles={[ROLES.Manager, ROLES.Admin]}/>}>
+                                    <Route path={"users"}>
+                                        <Route index element={<UsersList/>}/>
+                                        <Route path=":id" element={<EditUser/>}/>
+                                        <Route path="new" element={<NewUserForm/>}/>
+                                    </Route>
+                                </Route>
 
-                        <Route path={"notes"}>
-                            <Route index element={<NotesList/>}/>
-                            <Route path=":id" element={<EditNote/>}/>
-                            <Route path="new" element={<NewNote/>}/>
-                        </Route>
+                                <Route path={"notes"}>
+                                    <Route index element={<NotesList/>}/>
+                                    <Route path=":id" element={<EditNote/>}/>
+                                    <Route path="new" element={<NewNote/>}/>
+                                </Route>
 
-                        <Route path={"movieComments"}>
-                            <Route index element={<MovieCommentsList/>}/>
-                            <Route path=":id" element={<EditMovieComment/>}/>
-                            <Route path="new" element={<NewMovieComment/>}/>
+                                <Route path={"movieComments"}>
+                                    <Route index element={<MovieCommentsList/>}/>
+                                    <Route path=":id" element={<EditMovieComment/>}/>
+                                    <Route path="new" element={<NewMovieComment/>}/>
+                                </Route>
+                            </Route>{/* end dash */}
                         </Route>
-                    </Route>{/* end dash */}
+                    </Route>
                 </Route>
             </Route>
         </Routes>
-    );
+    )
 }
 
 export default App;
