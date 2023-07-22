@@ -4,13 +4,19 @@ import Public from "./components/Public";
 import Login from "./features/auth/Login";
 import DashLayout from "./components/DashLayout";
 import Welcome from "./features/auth/Welcome";
-import NotesList from "./features/notes/NotesList";
+import MovieCommentsList from "./features/movieComments/MovieCommentsList";
 import UsersList from "./features/users/UsersList";
 import EditUser from "./features/users/EditUser";
 import NewUserForm from "./features/users/NewUserForm";
 import EditNote from "./features/notes/EditNote";
 import NewNote from "./features/notes/NewNote";
 import Prefetch from "./features/auth/Prefetch";
+import MovieComments from "./features/movieComments/MovieComments";
+import NotesList from "./features/notes/NotesList";
+import NewMovieCommentForm from "./features/movieComments/NewMovieCommentForm";
+import NewMovieComment from "./features/movieComments/NewMovieComment";
+import EditMovieCommentForm from "./features/movieComments/EditMovieCommentForm";
+import EditMovieComment from "./features/movieComments/EditMovieComment";
 
 
 function App() {
@@ -34,7 +40,12 @@ function App() {
                             <Route index element={<NotesList/>}/>
                             <Route path=":id" element={<EditNote/>}/>
                             <Route path="new" element={<NewNote/>}/>
+                        </Route>
 
+                        <Route path={"movieComments"}>
+                            <Route index element={<MovieCommentsList/>}/>
+                            <Route path=":id" element={<EditMovieComment/>}/>
+                            <Route path="new" element={<NewMovieComment/>}/>
                         </Route>
                     </Route>{/* end dash */}
                 </Route>
