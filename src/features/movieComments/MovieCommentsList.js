@@ -1,7 +1,10 @@
 import {useGetMovieCommentsQuery} from "./movieCommentsApiSlice";
 import MovieComments from "./MovieComments";
+import useAuth from "../../hooks/useAuth";
 
 const MovieCommentsList = () => {
+    const {username, isManager, isAdmin} = useAuth();
+
     const {
         data: movieComments,
         isLoading,
@@ -23,11 +26,16 @@ const MovieCommentsList = () => {
     }
 
     if (isSuccess) {
-        const { ids } = movieComments
+        const { ids, entities } = movieComments
 
-        const tableContent = ids?.length
-            ? ids.map(movieCommentId => <MovieComments key={movieCommentId} movieCommentId={movieCommentId} />)
-            : null
+        let filteredIds
+        if (isManager || isAdmin) {
+            filteredIds = [...ids]
+        } else {
+            filteredIds = ids.filter(movieCommentId => entities[movieCommentId].username === username)
+        }
+
+        const tableContent = ids?.length && filteredIds.map(movieCommentId => <MovieComments key={movieCommentId} movieCommentId={movieCommentId} />)
 
         content = (
             <table className="table table--notes">

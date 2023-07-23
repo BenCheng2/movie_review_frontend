@@ -8,17 +8,16 @@ import {
     faRightFromBracket
 } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate, Link, useLocation } from 'react-router-dom'
-
 import { useSendLogoutMutation } from '../features/auth/authApiSlice'
-
 import useAuth from '../hooks/useAuth'
+import PulseLoader from 'react-spinners/PulseLoader'
 
 const DASH_REGEX = /^\/dash(\/)?$/
 const NOTES_REGEX = /^\/dash\/notes(\/)?$/
 const USERS_REGEX = /^\/dash\/users(\/)?$/
 
 const DashHeader = () => {
-    const {isManager, isAdmin} = useAuth()
+    const { isManager, isAdmin } = useAuth()
 
     const navigate = useNavigate()
     const { pathname } = useLocation()
@@ -35,9 +34,11 @@ const DashHeader = () => {
     }, [isSuccess, navigate])
 
     const onNewNoteClicked = () => navigate('/dash/notes/new')
+    const onNewMovieCommentClicked = () => navigate('/dash/moviecomments/new')
     const onNewUserClicked = () => navigate('/dash/users/new')
-
     const onNotesClicked = () => navigate('/dash/notes')
+
+    const onMovieCommentsClicked = () => navigate('/dash/moviecomments')
     const onUsersClicked = () => navigate('/dash/users')
 
     let dashClass = null
@@ -52,6 +53,19 @@ const DashHeader = () => {
                 className="icon-button"
                 title="New Note"
                 onClick={onNewNoteClicked}
+            >
+                <FontAwesomeIcon icon={faFileCirclePlus} />
+            </button>
+        )
+    }
+
+    let newMovieCommentButton = null
+    if (NOTES_REGEX.test(pathname)) {
+        newMovieCommentButton = (
+            <button
+                className="icon-button"
+                title="New MovieComment"
+                onClick={onNewMovieCommentClicked}
             >
                 <FontAwesomeIcon icon={faFileCirclePlus} />
             </button>
@@ -86,6 +100,21 @@ const DashHeader = () => {
         }
     }
 
+    let movieCommentButton = null
+    if (isManager || isAdmin) {
+        if (!USERS_REGEX.test(pathname) && pathname.includes('/dash')) {
+            movieCommentButton = (
+                <button
+                    className="icon-button"
+                    title="Movie Comments"
+                    onClick={onMovieCommentsClicked}
+                >
+                    <FontAwesomeIcon icon={faFilePen} />
+                </button>
+            )
+        }
+    }
+
     let notesButton = null
     if (!NOTES_REGEX.test(pathname) && pathname.includes('/dash')) {
         notesButton = (
@@ -98,7 +127,6 @@ const DashHeader = () => {
             </button>
         )
     }
-
 
     const logoutButton = (
         <button
@@ -114,13 +142,15 @@ const DashHeader = () => {
 
     let buttonContent
     if (isLoading) {
-        buttonContent = <p>Logging Out...</p>
+        buttonContent = <PulseLoader color={"#FFF"} />
     } else {
         buttonContent = (
             <>
                 {newNoteButton}
+                {newMovieCommentButton}
                 {newUserButton}
                 {notesButton}
+                {movieCommentButton}
                 {userButton}
                 {logoutButton}
             </>
@@ -134,7 +164,7 @@ const DashHeader = () => {
             <header className="dash-header">
                 <div className={`dash-header__container ${dashClass}`}>
                     <Link to="/dash">
-                        <h1 className="dash-header__title">techNotes</h1>
+                        <h1 className="dash-header__title">Movie Review Share</h1>
                     </Link>
                     <nav className="dash-header__nav">
                         {buttonContent}

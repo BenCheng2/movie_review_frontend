@@ -13,11 +13,14 @@ const initialState = movieCommentsAdapter.getInitialState()
 export const movieCommentsApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getMovieComments: builder.query({
-            query: () => '/movieComments',
-            validateStatus: (response, result) => {
-                return response.status === 200 && !result.isError
-            },
+            query: () => ({
+                url: '/movieComments',
+                validateStatus: (response, result) => {
+                    return response.status === 200 && !result.isError
+                },
+            }),
             transformResponse: responseData => {
+                console.log(responseData)
                 const loadedMovieComments = responseData.map(movieComment => {
                     movieComment.id = movieComment._id
                     return movieComment
@@ -58,7 +61,7 @@ export const movieCommentsApiSlice = apiSlice.injectEndpoints({
             ]
         }),
         deleteMovieComment: builder.mutation({
-            query: id => ({
+            query: ({ id }) => ({
                 url: `/movieComments/`,
                 method: 'DELETE',
                 body: {

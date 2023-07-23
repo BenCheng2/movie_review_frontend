@@ -11,8 +11,8 @@ const Welcome = () => {
         <section className={"welcome"}>
             <p>{today}</p>
             <h1>Welcome {username} !</h1>
-            <p><Link to={"/dash/notes"}>View techNotes</Link></p>
-            <p><Link to={"/dash/notes/new"}>Add New techNote</Link></p>
+            <p><Link to={"/dash/notes"}>View Movie Notes</Link></p>
+            <p><Link to={"/dash/notes/new"}>Add New Movie Notes</Link></p>
 
             <p><Link to={"/dash/moviecomments"}>View Movie Comments</Link></p>
             <p><Link to={"/dash/moviecomments/new"}>Add New Movie Comment</Link></p>

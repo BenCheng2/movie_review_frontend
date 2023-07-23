@@ -3,8 +3,10 @@ import { useUpdateMovieCommentMutation, useDeleteMovieCommentMutation } from "./
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave, faTrashCan } from "@fortawesome/free-solid-svg-icons"
+import useAuth from "../../hooks/useAuth";
 
 const EditMovieCommentForm = ({ movieComment, users }) => {
+    const { isManager, isAdmin } = useAuth()
 
     const [updateMovieComment, {
         isLoading,
@@ -77,6 +79,19 @@ const EditMovieCommentForm = ({ movieComment, users }) => {
 
     const errContent = (error?.data?.message || delerror?.data?.message) ?? ''
 
+    let deleteButton = null
+    if (isManager || isAdmin) {
+        deleteButton = (
+            <button
+                className="icon-button"
+                title="Delete"
+                onClick={onDeleteMovieCommentClicked}
+            >
+                <FontAwesomeIcon icon={faTrashCan} />
+            </button>
+        )
+    }
+
     const content = (
         <>
             <p className={errClass}>{errContent}</p>
@@ -93,13 +108,7 @@ const EditMovieCommentForm = ({ movieComment, users }) => {
                         >
                             <FontAwesomeIcon icon={faSave} />
                         </button>
-                        <button
-                            className="icon-button"
-                            title="Delete"
-                            onClick={onDeleteMovieCommentClicked}
-                        >
-                            <FontAwesomeIcon icon={faTrashCan} />
-                        </button>
+                        {deleteButton}
                     </div>
                 </div>
                 <label className="form__label" htmlFor="note-title">

@@ -1,15 +1,16 @@
-import React from 'react';
 import { useState, useEffect } from "react"
 import { useAddNewUserMutation } from "./usersApiSlice"
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave } from "@fortawesome/free-solid-svg-icons"
 import { ROLES } from "../../config/roles"
+import useTitle from "../../hooks/useTitle"
 
 const USER_REGEX = /^[A-z]{3,20}$/
 const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/
 
 const NewUserForm = () => {
+    useTitle('Movie Note: New User')
 
     const [addNewUser, {
         isLoading,
@@ -25,7 +26,6 @@ const NewUserForm = () => {
     const [password, setPassword] = useState('')
     const [validPassword, setValidPassword] = useState(false)
     const [roles, setRoles] = useState(["Employee"])
-
 
     useEffect(() => {
         setValidUsername(USER_REGEX.test(username))
@@ -64,7 +64,6 @@ const NewUserForm = () => {
         }
     }
 
-
     const options = Object.values(ROLES).map(role => {
         return (
             <option
@@ -79,6 +78,7 @@ const NewUserForm = () => {
     const validUserClass = !validUsername ? 'form__input--incomplete' : ''
     const validPwdClass = !validPassword ? 'form__input--incomplete' : ''
     const validRolesClass = !Boolean(roles.length) ? 'form__input--incomplete' : ''
+
 
     const content = (
         <>
@@ -138,8 +138,6 @@ const NewUserForm = () => {
         </>
     )
 
-
-    return content;
+    return content
 }
-
-export default NewUserForm;
+export default NewUserForm

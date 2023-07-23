@@ -20,6 +20,7 @@ import EditMovieComment from "./features/movieComments/EditMovieComment";
 import PersistLogin from "./features/auth/PersistLogin";
 import RequireAuth from './features/auth/RequireAuth'
 import {ROLES} from './config/roles'
+import useTitle from "./hooks/useTitle";
 
 
 function App() {
@@ -43,10 +44,12 @@ function App() {
                                     </Route>
                                 </Route>
 
+                                <Route element={<RequireAuth allowedRoles={[ROLES.Manager, ROLES.Admin]}/>}>
                                 <Route path={"notes"}>
                                     <Route index element={<NotesList/>}/>
                                     <Route path=":id" element={<EditNote/>}/>
                                     <Route path="new" element={<NewNote/>}/>
+                                </Route>
                                 </Route>
 
                                 <Route path={"movieComments"}>
