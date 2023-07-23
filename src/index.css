@@ -1,231 +1,166 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    @apply box-border m-0 p-0;
 }
 
 /* || VARIABLES */
 
-:root {
-  /* COLORS */
-  --BGCOLOR: #0F172A;
-  --BORDER-COLOR: #FFF;
-  --COLOR: #FFF;
-  --ERROR: firebrick;
-  --INACTIVE: lightgray;
-  --LINK-COLOR: whitesmoke;
-  --LINK-HOVER: rgba(245, 245, 245, 0.9);
-  --NOTE-BGCOLOR: hsla(240, 64%, 27%, 0.65);
-  --STATUS-COMPLETE: limegreen;
-  --STATUS-OPEN: firebrick;
-  --TABLE-BGCOLOR: #FFF;
-  --TABLE-COLOR: #000;
-}
-
 /* || UTILITY CLASSES */
 .errmsg {
-  display: inline-block;
-  background-color: var(--TABLE-BGCOLOR);
-  color: var(--ERROR);
-  padding: 0.25em;
-  margin-bottom: 0.5em;
+    @apply inline-block bg-white text-red-600 mb-[0.5em] p-[0.25em];
 }
 
 .nowrap {
-  white-space: nowrap;
+    @apply whitespace-nowrap;
 }
 
 .icon-button {
-  width: 48px;
-  height: 48px;
-  font-size: 2.5rem;
-  background-color: transparent;
-  border: none;
-  color: var(--COLOR);
-  display: grid;
-  place-content: center;
-}
-
-.icon-button:hover,
-.icon-button:focus-visible {
-  transform: scale(1.2);
-}
-
-.icon-button[disabled] {
-  visibility: hidden;
+    @apply w-12 h-12 text-4xl bg-transparent border-none text-white grid place-content-center;
+    @apply hover:scale-125;
+    @apply sm:text-2xl;
+    /* TODO: The visibility need to be set to hidden if the button is disabled */
 }
 
 /* || GENERAL STYLES */
 
+/* The background setting other component referring to */
 body {
-  font-family: 'Nunito', sans-serif;
-  min-height: 100vh;
-  background-color: var(--BGCOLOR);
-  color: var(--COLOR);
-  background-image: url('img/background.jpg');
-  background-size: cover;
-  background-position: top right;
-  background-blend-mode: multiply;
+    @apply min-h-screen bg-cyan-300 text-black;
+    @apply bg-[url('img/background.jpg')] bg-cover bg-right-top bg-blend-multiply;
+    @apply text-xl;
 }
 
 input,
 button,
 textarea,
 select {
-  font: inherit;
+    font: inherit;
 }
 
 #root {
-  /* React root div */
-  min-height: 100vh;
-  display: flex;
-  flex-flow: column nowrap;
+    @apply min-h-screen flex;
+    /* React root div */
+    flex-flow: column nowrap;
 }
 
 a {
-  text-decoration: none;
+    @apply no-underline;
 }
 
-a,
-a:visited {
-  color: var(--LINK-COLOR);
+a, a:visited {
+    @apply text-slate-100;
 }
 
 a:hover,
 a:focus-visible {
-  color: var(--LINK-HOVER);
+    @apply text-slate-100;
 }
 
 /* || PAGES */
 
-.public,
 .welcome {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+    @apply flex flex-col gap-4;
+    @apply font-extrabold text-transparent text-8xl bg-clip-text bg-gradient-to-r from-indigo-900 via-purple-900 to-pink-700;
+    @apply text-2xl;
+    @apply pl-5 pt-5;
 }
 
 .public {
-  padding: 1em;
-  flex-grow: 1;
+    @apply grow p-[1em];
 }
+
 
 .public__main,
 .login {
-  flex-grow: 1;
-  border-top: 2px solid var(--BORDER-COLOR);
-  border-bottom: 2px solid var(--BORDER-COLOR);
-  padding: 1em 0;
+    @apply grow border-b-white border-t-white border-solid;
+    @apply border-y-2;
+    @apply px-0 py-[1em];
+    @apply grow;
 }
 
 .public__addr {
-  margin-top: 1em;
+    @apply mt-[1em];
 }
 
 .welcome a::before {
-  content: "➜ "
+    @apply content-["➜_"];
 }
 
 /* || DASH HEADER, CONTAINER & FOOTER */
 
 .dash-header {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  background-color: var(--BGCOLOR);
-  padding: 0 0.5em;
-  border-bottom: 1px solid var(--BORDER-COLOR);
+    @apply sticky top-0 z-10;
+    @apply bg-indigo-400;
+    @apply border-b-2 border-solid border-white;
+    @apply px-[0.5em] py-0;
+    @apply md:px-[1em] md:py-0;
+
 }
 
 .dash-header__container {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: center;
+    @apply flex justify-between items-center;
+    flex-flow: row nowrap;
 }
 
 .dash-header__nav {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: flex-end;
-  gap: 0.5em;
+    @apply flex justify-end gap-[0.5em];
+    @apply sm:gap-0;
+    flex-flow: row nowrap;
 }
 
 .dash-container {
-  padding: 0.75em 0.5em 0.5em;
-  flex-grow: 1;
+    @apply grow pt-[0.75em] pb-[0.5em] px-[0.5em];
+    @apply md:p-[1em];
 }
 
 .dash-footer {
-  font-size: 1rem;
-  position: sticky;
-  bottom: 0;
-  z-index: 1;
-  background-color: var(--BGCOLOR);
-  padding: 0.5em;
-  border-top: 1px solid var(--BORDER-COLOR);
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: flex-start;
-  gap: 1em;
+    @apply text-base sticky;
+    @apply bottom-0 z-10 p-[0.5em] border-t-2 border-solid border-white;
+    @apply flex justify-start;
+    @apply gap-[1em];
+    @apply bg-indigo-400;
+    flex-flow: row nowrap;
 }
 
 .dash-footer__button {
-  font-size: 1rem;
-  width: auto;
-  height: auto;
+    @apply text-base w-auto h-auto;
 }
-
 
 /* || TABLES - GENERAL */
 
 thead,
 tbody,
 tr {
-  display: contents;
+    @apply contents;
 }
 
 .table {
-  font-size: 1rem;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  color: var(--TABLE-COLOR);
-  gap: 0.1em;
+    @apply text-base w-full grid grid-cols-[1fr_2fr_1fr] text-black gap-[0.1em];
+    @apply md:text-2xl;
 }
 
 .table__button {
-  padding: 0.25em;
-  font-size: 1.5rem;
-  color: var(--TABLE-COLOR);
+    @apply text-2xl text-black p-[0.25em];
 }
 
 .table__thead {
-  position: sticky;
-  top: 0;
-  z-index: 1;
+    @apply sticky z-10 top-0;
 }
 
 .table__th,
 .table__cell {
-  background-color: var(--TABLE-BGCOLOR);
-  text-align: left;
-  border: 1px solid var(--TABLE-COLOR);
-  padding: 0.5em;
+    @apply bg-white text-left border border-black p-[0.5em] border-solid;
 }
 
 .table__cell:last-child {
-  display: grid;
-  place-content: center;
+    @apply grid place-content-center;
 }
 
 .table__cell--inactive {
-  background-color: var(--INACTIVE);
+    @apply bg-neutral-300;
 }
 
 /* ||  NOTE */
@@ -233,141 +168,92 @@ tr {
 .note__created,
 .note__updated,
 .note__username {
-  display: none;
+    @apply hidden;
+    @apply md:block;
 }
 
 .note__status {
-  font-weight: bold;
+    @apply font-bold;
 }
 
 .note__status--open {
-  color: var(--STATUS-OPEN);
+    @apply text-green-600;
 }
 
 .note__status--completed {
-  color: var(--STATUS-COMPLETE);
+    @apply text-red-600;
 }
-
 
 /* || FORM - GENERAL */
 
 .form {
-  display: flex;
-  flex-flow: column nowrap;
-  gap: 0.75em;
-  max-width: 800px;
+    @apply flex gap-[0.75em] max-w-screen-md;
+    flex-flow: column nowrap;
 }
 
 .form__checkbox-container {
-  display: flex;
-  align-items: center;
-  width: fit-content;
-  gap: 0.5em;
+    @apply flex items-center w-fit gap-[0.5em];
 }
 
 .form__persist {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  gap: 0.5em;
+    @apply flex items-center w-full gap-[0.5em];
 }
 
 .form__title-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    @apply flex justify-between items-center;
 }
 
 .form__input,
 .form__submit-button {
-  padding: 0.5em;
-  border-radius: 15px;
+    @apply p-[0.5em] rounded-2xl;
 }
 
 .form__input--text {
-  min-height: 150px;
+    @apply min-h-[150px];
 }
 
 .form__input--incomplete {
-  border: 1px solid red;
-  outline: 1px solid red;
+    @apply border border-solid border-[red];
+    outline: 1px solid red;
 }
 
-
 .form__checkbox {
-  width: 24px;
-  height: 24px;
+    @apply w-6 h-6;
 }
 
 .form__select {
-  width: fit-content;
-  padding: 0.25em;
+    @apply w-fit p-[0.25em];
 }
 
 .form__action-buttons {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 0.5em;
-  position: absolute;
-  right: 0.5em;
+    @apply flex justify-end items-center gap-[0.5em] absolute right-[0.5em];
+    @apply static;
 }
 
 .form__row {
-  display: flex;
-  flex-flow: row nowrap;
-  gap: 2em;
+    @apply flex gap-[2em];
+    flex-flow: row nowrap;
 }
 
 .form__divider {
-  display: flex;
-  flex-flow: column nowrap;
-  gap: 0.5em;
+    @apply flex gap-[0.5em];
+    flex-flow: column nowrap;
 }
 
+/* The styles for link */
+.link {
+    @apply hover:font-bold;
+}
+
+/* Additional Screen Size Adjustment*/
 @media screen and (max-width: 400px) {
-  h1 {
-    font-size: 2rem;
-  }
-
-  .dash-header__nav {
-    gap: 0;
-  }
-
-  .icon-button {
-    font-size: 1.5rem;
-  }
+    h1 {
+        @apply text-[2rem];
+    }
 }
 
 @media screen and (min-width: 768px) {
-
-  body {
-    font-size: 1.25rem;
-  }
-
-  .dash-header {
-    padding: 0 1em;
-  }
-
-  .dash-container {
-    padding: 1em;
-  }
-
-  .table {
-    font-size: 1.5rem;
-  }
-
-  .table--notes {
-    grid-template-columns: repeat(3, 1fr) 2fr repeat(2, 1fr);
-  }
-
-  .note__created,
-  .note__updated,
-  .note__username {
-    display: block
-  }
-
-  .form__action-buttons {
-    position: static;
-  }
+    .table--notes {
+        @apply grid-cols-[repeat(3,1fr)_2fr_repeat(2,1fr)];
+    }
 }
