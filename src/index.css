@@ -6,8 +6,6 @@
     @apply box-border m-0 p-0;
 }
 
-/* || VARIABLES */
-
 /* || UTILITY CLASSES */
 .errmsg {
     @apply inline-block bg-white text-red-600 mb-[0.5em] p-[0.25em];
