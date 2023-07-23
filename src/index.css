@@ -27,7 +27,7 @@
 /* The background setting other component referring to */
 body {
     @apply min-h-screen bg-cyan-300 text-black;
-    @apply bg-[url('img/background.jpg')] bg-cover bg-right-top bg-blend-multiply;
+    @apply bg-[url('img/background_2.jpg')] bg-cover bg-right-top bg-blend-multiply;
     @apply text-xl;
 }
 
@@ -61,19 +61,25 @@ a:focus-visible {
 
 .welcome {
     @apply flex flex-col gap-4;
-    @apply font-extrabold text-transparent text-8xl bg-clip-text bg-gradient-to-r from-indigo-900 via-purple-900 to-pink-700;
+    @apply font-extrabold text-red-500;
     @apply text-2xl;
     @apply pl-5 pt-5;
 }
 
 .public {
     @apply grow p-[1em];
+
+}
+
+.login_heading{
+    @apply text-amber-500 text-2xl
 }
 
 
 .public__main,
 .login {
     @apply grow border-b-white border-t-white border-solid;
+    @apply text-orange-500 font-bold bg-clip-text bg-gradient-to-r from-amber-500 to-red-500;
     @apply border-y-2;
     @apply px-0 py-[1em];
     @apply grow;
@@ -101,6 +107,10 @@ a:focus-visible {
 .dash-header__container {
     @apply flex justify-between items-center;
     flex-flow: row nowrap;
+}
+
+.dash-header__title {
+    @apply text-amber-400 font-bold text-2xl
 }
 
 .dash-header__nav {
@@ -238,9 +248,22 @@ tr {
     flex-flow: column nowrap;
 }
 
+.form__label {
+    @apply text-base font-bold text-orange-500;
+}
+
 /* The styles for link */
 .link {
     @apply hover:font-bold;
+}
+
+/* The styles for new model title */
+.new_model_title {
+    @apply text-amber-500 text-2xl
+}
+
+.home_title {
+    @apply text-amber-500 text-2xl
 }
 
 /* Additional Screen Size Adjustment*/

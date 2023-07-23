@@ -98,7 +98,7 @@ const EditMovieCommentForm = ({ movieComment, users }) => {
 
             <form className="form" onSubmit={e => e.preventDefault()}>
                 <div className="form__title-row">
-                    <h2>Edit Note #{movieComment.ticket}</h2>
+                    <h2 className="new_model_title">Edit Comment #{movieComment.title}</h2>
                     <div className="form__action-buttons">
                         <button
                             className="icon-button"
